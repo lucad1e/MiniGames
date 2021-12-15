@@ -9,7 +9,7 @@ client.login(config.Token);
 client.on("ready", readyDiscord);
 
 function readyDiscord(){
-    console.log("Bot is ready");
+    console.log(`Logged in as ${client.user.tag}!`);
 }
 
 client.on("messageCreate", commandHandler);

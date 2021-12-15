@@ -17,12 +17,14 @@ class HangmanGame{
         this.guessedRight = [];
         this.guessesRemaining = 5;
         this.inGame = false;
+        this.id = null;
     }
 
     startGame(msg){
         if (this.inGame){
             return;
         }
+        this.id = msg.member.id
         this.inGame = true;
         this.word = this.getWord()
         const embed = new Discord.MessageEmbed()
@@ -44,7 +46,7 @@ class HangmanGame{
     }
     
     waitForLetter(){
-        const filter = () => true
+        const filter = (reaction, user) => user.id === this.id
         this.gameEmbed.awaitReactions({ filter, time: 30_000 , max: 1})
             .then(collected => {
                 const reaction = collected.first();
@@ -96,7 +98,7 @@ class HangmanGame{
     getColour(){
         // No answer right
         const quo = this.guessedRight.length / this.word.length
-        if(quo < 0.33 || this.guessesRemaining === -1){
+        if(quo < 0.33 || this.guessesRemaining <= 0){
             return '#ED4245';
         }
         if(quo < 0.66){
@@ -112,7 +114,7 @@ class HangmanGame{
     getDescription(){
         return  "```|‾‾‾‾‾‾‾‾‾‾| " +  
             "\n|         " + (this.guessesRemaining < 5 ? "🎩" : " ") + 
-            "\n|         " + (this.guessesRemaining < 4 ? "😂" : " ") +
+            "\n|         " + (this.guessesRemaining < 4 ? "😳" : " ") +
             "\n|         " + (this.guessesRemaining < 3 ? "👕" : " ") +
             "\n|         " + (this.guessesRemaining < 2 ? "👖" : " ") +
             "\n|        " + (this.guessesRemaining < 1 ? "👟👟" : " ") +
@@ -121,7 +123,7 @@ class HangmanGame{
     }
 
     gameOverMessage(){
-        if(this.guessesRemaining === -1){
+        if(this.guessesRemaining < 0){
             this.guessedRight = Array.from(this.word);
             return "You took too long. The word was";
         }
@@ -165,8 +167,8 @@ class HangmanGame{
     }
 
     getWord(){
-        const arr = wordList.words
-        const i = Math.round(Math.random() * (arr.length - 1));
+        const arr = wordList.words;
+        const i = Math.floor(Math.random() * arr.length);
         return arr[i].toUpperCase()
     }
 }
