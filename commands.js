@@ -7,8 +7,9 @@ module.exports = async function (msg){
     if (!tokens[0].startsWith("!")){
         return;
     }
-    if(tokens[0] === "!hangman"){
+    if(tokens[0].startsWith("!h")){
         //Hangman Handler
+        console.log("Hangman")
         HangmanGame(msg);
     }
     return;
