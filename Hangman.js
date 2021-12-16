@@ -47,7 +47,7 @@ class HangmanGame{
     
     waitForLetter(){
         const filter = (reaction, user) => user.id === this.id
-        this.gameEmbed.awaitReactions({ filter, time: 30_000 , max: 1})
+        this.gameEmbed.awaitReactions({ filter, time: 30000 , max: 1})
             .then(collected => {
                 const reaction = collected.first();
                 const letter = emojiList.letters[reaction.emoji.name];
@@ -73,7 +73,10 @@ class HangmanGame{
             return;
         }
         if(this.word.includes(letter)){
-            this.guessedRight = this.guessedRight.concat(letter);
+            const am = this.multipleLetters(letter)
+            for(let i = 0; i < am; i++){
+                this.guessedRight = this.guessedRight.concat(letter);
+            }
         }
         else{
             this.guessesRemaining -= 1
@@ -170,5 +173,15 @@ class HangmanGame{
         const arr = wordList.words;
         const i = Math.floor(Math.random() * arr.length);
         return arr[i].toUpperCase()
+    }
+
+    multipleLetters(letter){
+        var amount = 0;
+        for(let i = 0; i < this.word.length; i++){
+            if(this.word.charAt(i) === letter){
+                amount++;
+            }
+        }
+        return amount;
     }
 }
