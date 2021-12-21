@@ -1,7 +1,7 @@
 const client = require("./MiniGames")
 const Discord = require("discord.js");
-const emojiList = require("./emojis.json")
-const wordList = require("./words.json")
+const emojiList = require("../emojis.json")
+const wordList = require("../words.json")
 
 module.exports = async function(msg){
     game = new HangmanGame();
