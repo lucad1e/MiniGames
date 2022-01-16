@@ -1,4 +1,4 @@
-const client = require("./MiniGames")
+const client = require("./MyBot")
 const Discord = require("discord.js");
 const emojiList = require("../emojis.json")
 const wordList = require("../words.json")

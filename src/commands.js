@@ -1,18 +1,23 @@
 const fetch = require("node-fetch")
+const client = require("./MyBot")
 const HangmanGame = require('./Hangman');
-const client = require("./MiniGames")
 const randomGod = require("./randomGods")
+const playMusic = require("./playMusic")
 
 module.exports = async function (msg){
     let tokens = msg.content.split(" ");
     if (!tokens[0].startsWith("!")){
         return;
     }
+
+    // Hangman Command
     if(tokens[0] === "!hangman"){
         //Hangman Handler
         console.log(`${msg.member.user.tag} is playing hangman`)
         HangmanGame(msg);
     }
+
+    // Random Smite God
     if(tokens[0].startsWith("!r")){
         let amount = 1;
         try{
@@ -24,6 +29,11 @@ module.exports = async function (msg){
         }
         console.log(`${msg.member.user.tag} is rolling ${amount} god(s)`);
         randomGod(amount);
+    }
+
+    // Music bot
+    if(token[0].startsWith("!play")){
+
     }
     return;
 }
