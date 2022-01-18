@@ -32,8 +32,8 @@ module.exports = async function (msg){
     }
 
     // Music bot
-    if(token[0].startsWith("!play")){
-
+    if(tokens[0].startsWith("!play")){
+            playMusic(msg);
     }
     return;
 }
